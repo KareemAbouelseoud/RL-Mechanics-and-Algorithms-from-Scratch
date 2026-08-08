@@ -12,7 +12,7 @@ class EpsilonGreedyAgent:
                  use_softmax=False):
         
         self.options = options
-        self.initial_epsilon = epsilon  # Need to remember this for when we reset!
+        self.initial_epsilon = epsilon  # Need to remember this for when we reset
         self.epsilon = epsilon
         
         # Improvement Parameters
@@ -40,7 +40,6 @@ class EpsilonGreedyAgent:
         """
         if self.use_softmax:
             # Subtracting the max Q-value is a standard ML trick for numerical stability
-            # so the e^x calculation doesn't overflow to infinity!
             exp_q = np.exp(self.q_values - np.max(self.q_values))
             probabilities = exp_q / np.sum(exp_q)
             
@@ -72,10 +71,10 @@ class EpsilonGreedyAgent:
             
         self.action_counts = np.zeros(self.options)
         
-        # Must reset epsilon back to its starting value (e.g., 1.0)
+        # Must reset epsilon back to its starting value (e.g., 0.1)
         self.epsilon = self.initial_epsilon 
         
-        # Must re-apply optimistic initialization if it's turned on
+        # Must reapply optimistic initialization if its turned on
         if self.use_optimistic_init:
             self.q_values = np.full(self.options, float(self.optimistic_value))
         else:
