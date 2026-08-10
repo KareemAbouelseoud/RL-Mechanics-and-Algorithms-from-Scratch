@@ -1,0 +1,26 @@
+{
+    "environment": {
+        "name": "bandit",
+        "kwargs": {
+            "n_actions": 10
+        }
+    },
+    "agent": {
+        "name": "epsilon_greedy",
+        "kwargs": {
+            "n_actions": 10,
+            "epsilon": 1.0,
+            "use_decay": true,
+            "decay_rate": 0.995,
+            "use_optimistic_init": true,
+            "optimistic_value": 5.0,
+            "use_softmax": true,
+            "temperature": 5.0,
+            "min_temperature": 0.05
+        }
+    },
+    "simulation": {
+        "seeds": 200,
+        "steps": 1000
+    }
+}

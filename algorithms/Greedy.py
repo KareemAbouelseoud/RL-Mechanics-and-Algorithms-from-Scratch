@@ -6,12 +6,11 @@ class GreedyAgent:
     Always chooses the action with the highest estimated value.
     """
     
-    def __init__(self, options=10, random_seed=None):
-        self.options = options
-        self.action_counts = np.zeros(options)
-        self.q_values = np.zeros(options)
-        if random_seed is not None:
-            np.random.seed(random_seed)  # For reproducibility if a seed is provided
+    def __init__(self, n_actions=10):
+        self.n_actions = n_actions
+        self.action_counts = np.zeros(n_actions)
+        self.q_values = np.zeros(n_actions)
+        self.rng = np.random.default_rng()
 
     def choose_action(self):
         """
@@ -19,8 +18,7 @@ class GreedyAgent:
         Ties must be broken randomly.
         """
         indices_of_max = np.where(self.q_values == np.max(self.q_values))[0]  # Get indices of all max Q-values
-        chosen_action = np.random.choice(indices_of_max)  # Randomly select one of the indices
-        return chosen_action
+        return indices_of_max[0] if len(indices_of_max) == 1 else self.rng.choice(indices_of_max)  # Break ties randomly
         
     def update(self, action, reward):
         """
@@ -29,11 +27,11 @@ class GreedyAgent:
         self.action_counts[action] += 1
         self.q_values[action] += (reward - self.q_values[action]) / self.action_counts[action]
         
-    def reset(self, random_seed=None):
+    def reset(self, rng=None):
         """
         Wipes the agent's memory for a new episode.
         """
-        if random_seed is not None:
-            np.random.seed(random_seed)
-        self.q_values = np.zeros(self.options)
-        self.action_counts = np.zeros(self.options)
+        if rng is not None:
+            self.rng = rng
+        self.q_values = np.zeros(self.n_actions)
+        self.action_counts = np.zeros(self.n_actions)

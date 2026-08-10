@@ -1,4 +1,4 @@
-from MultiArmBandit import MultiArmedBandit
+from .MultiArmBandit import MultiArmedBandit
 
 __all__ = [
     "MultiArmedBandit"

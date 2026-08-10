@@ -1,0 +1,19 @@
+{
+    "environment": {
+        "name": "bandit",
+        "kwargs": {
+            "n_actions": 10
+        }
+    },
+    "agent": {
+        "name": "epsilon_greedy",
+        "kwargs": {
+            "n_actions": 10,
+            "epsilon": 0.1
+        }
+    },
+    "simulation": {
+        "seeds": 200,
+        "steps": 1000
+    }
+}

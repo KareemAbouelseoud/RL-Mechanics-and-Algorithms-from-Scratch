@@ -20,25 +20,23 @@ class MultiArmedBandit:
     true expected value.
 
     Attributes:
-        k_arms (int): The number of available actions (levers).
+        n_actions (int): The number of available actions (levers).
         _true_values (np.ndarray): Private array of true expected values for each arm.
         optimal_action (int): The index of the arm with the highest true expected value.
         optimal_value (float): The actual highest true expected value.
     """
 
-    def __init__(self, k_arms=10, random_seed=None):
+    def __init__(self, n_actions=10):
         """
         Initializes the Bandit environment.
 
         Args:
-            k_arms (int): Number of arms (actions) in the bandit. Default is 10.
-            random_seed (int, optional): Seed for reproducibility.
+            n_actions (int): Number of actions in the bandit. Default is 10.
         """
-        self.k_arms = k_arms
-        if random_seed is not None:
-            np.random.seed(random_seed)
+        self.rng = np.random.default_rng()
+        self.n_actions = n_actions
             
-        self._true_values = np.random.normal(loc=0.0, scale=1.0, size=k_arms)
+        self._true_values = self.rng.normal(loc=0.0, scale=1.0, size=self.n_actions)
         
         # Pre-calculate the optimal values for benchmarking regret later
         self.optimal_action = np.argmax(self._true_values)
@@ -55,7 +53,7 @@ class MultiArmedBandit:
             float: The reward received, consisting of the true value plus Gaussian noise.
         """
         # The noise is centered at 0 with a standard deviation of 1
-        noise = np.random.normal(loc=0.0, scale=1.0)
+        noise = self.rng.normal(loc=0.0, scale=1.0)
         
         # Reward = True Expected Value + Noise
         reward = self._true_values[action] + noise
@@ -70,13 +68,14 @@ class MultiArmedBandit:
         """
         return self.optimal_action, self.optimal_value
 
-    def reset(self,random_seed=None):
+    def reset(self, rng=None):
         """
         Resets the environment by generating a completely new set of slot machines.
         This is called at the end of an episode/run to prepare for the next seed.
         """
-        if random_seed is not None:
-            np.random.seed(random_seed)
-        self._true_values = np.random.normal(loc=0.0, scale=1.0, size=self.k_arms)
+        if rng is not None:
+            self.rng = rng
+
+        self._true_values = self.rng.normal(loc=0.0, scale=1.0, size=self.n_actions)
         self.optimal_action = np.argmax(self._true_values)
         self.optimal_value = np.max(self._true_values)
