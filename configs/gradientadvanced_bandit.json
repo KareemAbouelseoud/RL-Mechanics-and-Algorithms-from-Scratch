@@ -1,0 +1,5 @@
+{
+    "environment": { "name": "bandit", "kwargs": { "n_actions": 10 } },
+    "agent": { "name": "gradient", "kwargs": { "n_actions": 10, "alpha": 0.4, "use_baseline": true, "use_decay": true, "decay_rate": 0.995 } },
+    "simulation": { "seeds": 200, "steps": 1000 }
+}
