@@ -1,0 +1,20 @@
+{
+    "environment": {
+        "name": "bandit",
+        "kwargs": {
+            "n_actions": 10
+        }
+    },
+    "agent": {
+        "name": "ucb",
+        "kwargs": {
+            "n_actions": 10,
+            "c": 2.0,
+            "use_variance": true
+        }
+    },
+    "simulation": {
+        "seeds": 200,
+        "steps": 1000
+    }
+}

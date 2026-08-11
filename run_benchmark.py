@@ -6,13 +6,14 @@ import subprocess
 import sys
 import numpy as np
 
-from algorithms import GreedyAgent, EpsilonGreedyAgent, GradientAgent
+from algorithms import GreedyAgent, EpsilonGreedyAgent, GradientAgent, UCBAgent
 from environments import MultiArmedBandit
 
 AGENT_REGISTRY = {
     "greedy": GreedyAgent,
     "epsilon_greedy": EpsilonGreedyAgent,
     "gradient": GradientAgent,
+    "ucb": UCBAgent,
 
 }
 
