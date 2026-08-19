@@ -1,0 +1,27 @@
+{
+    "environment": {
+        "name": "gridworld",
+        "kwargs": { "grid_size": 4 }
+    },
+    "agent": {
+        "name": "policy_iteration",
+        "kwargs": {
+            "num_states": 16,
+            "num_actions": 4,
+            "gamma": 0.99,
+            "theta": 1e-5,
+            "max_outer_iters": 100,
+            "max_inner_iters": 1000,
+            "eval_sweeps": null,
+            "tiebreak_seed": 0
+        }
+    },
+    "simulation": {
+        "seeds": 5,
+        "episodes": 100,
+        "max_steps": 50,
+        "master_seed": 0,
+        "trajectory_seed_idx": 0,
+        "trajectory_episode": 99
+    }
+}
